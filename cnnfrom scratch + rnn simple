@@ -1,0 +1,35 @@
+image_input = Input((224,224,3)) # حجم الصورة اللي داخله 
+# بتعمل حبت حركات في الصورة يعني تشقلبها تقلبها تلفها كده كل ده طبعا اثناء التدريب 
+x = data_augmentation(image_input) #عشان المودل يتعلم إن الصورة لو اتقلبت شوية أو اتغيرت إضاءتها، لسه معناها واحد.
+#معناها إن الموديل بيستخدم filters صغيرة حجمها: 3*3
+#تمشي على الصورة وتدور على patterns.
+#في الأول الـ filters بتتعلم حاجات بسيطة زي:
+#بعد كده الطبقات الأعمق تتعلم حاجات أكبر زي:
+x = Conv2D(32, 3, activation='relu', padding='same')(x) #هتطلع 32 feature maps.
+x = MaxPooling2D()(x)
+# function activition بتخلي علاقات غير خطية يعني لة الرقم سلبي صفره ولو موجب اعمله واحد
+# من الاخر عشان الموديل يعرف يتعلم حاجات معقدة في الصورة 
+x = Conv2D(64, 3, activation='relu', padding='same')(x) #64
+x = MaxPooling2D()(x)
+#معناها إن حجم الصورة أو الـ 
+# feature map يفضل قريب من نفس الحجم بعد الـ convolution.
+
+#يعني الطبقة متصغرش الصورة بسبب الفلتر.
+x = Conv2D(128, 3, activation='relu', padding='same')(x)#128
+x = GlobalAveragePooling2D()(x)
+
+cnn_output = Dense(256, activation='relu')(x)
+
+
+
+# maxpooling2D = دي بتصغر حجم الـ feature maps.
+#يعني بدل ما الموديل يحتفظ بكل التفاصيل الصغيرة، بياخد أهم قيمة في كل منطقة.
+
+
+
+
+
+#GlobalAveragePooling2D = بعد آخر convolution، بيكون عندك feature maps كثيرة.
+#الطبقة دي بتحولهم من شكل 2دييي إلى vector واحد.
+
+#أخف وأنظف وبيطلع representation مختصر للصورة.

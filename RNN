@@ -1,0 +1,45 @@
+ال RNN بتتعامل مع SQUENCES او الكلمات واحده واحده بالترتيب 
+بيولددد
+
+
+قبل التدريب، أنت عملت cleaning للـ captions.
+
+بالنسبة للإنجليزي، بتعمل:
+
+text = text.lower()
+text = re.sub(r"<.*?>", "", text)
+text = re.sub(r"[^a-zA-Z]", " ", text)
+text = re.sub(r"\s+", " ", text)
+
+يعني:
+
+تحويل الحروف لـ lowercase
+إزالة الرموز
+إزالة أي حاجة مش حروف إنجليزية
+تنضيف المسافات
+
+بعدها ضفت:
+
+<start>
+<end>
+
+يعني كل caption بقى مثلًا:
+
+<start> a man playing football <end>
+
+
+
+
+
+
+    Tokenization=ده بيحول الكلمات لأرقام.
+    num_words=15000 معناها إنك بتسمح للموديل يستخدم أعلى 15000 كلمة في الـ vocabulary.
+    يعني أي كلمة غريبة أو مش موجودة في الـ vocabulary تتحول للرمز ده.=00V
+
+
+
+
+
+
+
+    Padding=يعني كل captions لازم تبقى نفس الطول: 35
